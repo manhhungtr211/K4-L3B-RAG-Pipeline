@@ -4,7 +4,7 @@
 
 - Họ và tên: Trần Vũ Gia Huy
 - Mã học viên: 2A202602705
-- Nhóm: Chưa cung cấp
+- Nhóm: onedayonename
 - Repository/branch: `K4-L3B-RAG-Pipeline` / `main`
 
 ## Phần việc đã thực hiện
