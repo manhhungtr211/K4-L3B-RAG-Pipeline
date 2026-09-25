@@ -4,7 +4,7 @@
 
 - Họ và tên: Phạm Anh Minh
 - Mã học viên: 2A202603009
-- Nhóm: Chưa cung cấp
+- Nhóm: onedayonename
 - Repository/branch: `K4-L3B-RAG-Pipeline` / `minh`
 
 ## Phần việc đã thực hiện
