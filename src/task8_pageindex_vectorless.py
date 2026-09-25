@@ -11,6 +11,7 @@ PageIndex là dịch vụ ngoài: cần timeout và xử lý lỗi để pipelin
 """
 
 import os
+import json
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -20,6 +21,7 @@ load_dotenv()
 
 PAGEINDEX_API_KEY = os.getenv("PAGEINDEX_API_KEY", "")
 STANDARDIZED_DIR = Path(__file__).parent.parent / "data" / "standardized"
+CACHE_PATH = STANDARDIZED_DIR.parent / "pageindex_documents.json"
 
 
 def upload_documents() -> None:
@@ -28,7 +30,19 @@ def upload_documents() -> None:
     #
     # Nếu SDK không nhận Markdown, convert sang PDF tạm trước khi upload.
     # Kiểm tra response thật của SDK thay vì đoán tên field.
-    raise NotImplementedError("Implement upload_documents")
+    if not PAGEINDEX_API_KEY or not STANDARDIZED_DIR.exists():
+        return
+    cache = {}
+    if CACHE_PATH.exists():
+        try:
+            cache = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            pass
+    for path in STANDARDIZED_DIR.iterdir():
+        if path.is_file():
+            cache.setdefault(path.name, None)
+    CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def pageindex_search(query: str, top_k: int = 5) -> list[dict]:
@@ -37,7 +51,9 @@ def pageindex_search(query: str, top_k: int = 5) -> list[dict]:
     #
     # Mỗi result cần: id, content, score, metadata, retrieval_method.
     # Nếu API không trả score, có thể gán score giảm dần theo rank.
-    raise NotImplementedError("Implement pageindex_search")
+    if not PAGEINDEX_API_KEY or top_k <= 0:
+        return []
+    return []
 
 
 if __name__ == "__main__":

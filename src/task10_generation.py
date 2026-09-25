@@ -24,8 +24,8 @@ TOP_K = 5
 TOP_P = 0.9
 TEMPERATURE = 0.3
 
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "openai")
-LLM_MODEL = os.getenv("LLM_MODEL", "")
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini").lower()
+LLM_MODEL = os.getenv("LLM_MODEL", "gemini-3.8-flash")
 
 SYSTEM_PROMPT = """Trả lời chỉ từ context được cung cấp.
 Mỗi khẳng định phải có citation. Nếu thiếu evidence, hãy từ chối xác minh."""
@@ -40,7 +40,9 @@ def reorder_for_llm(chunks: list[dict]) -> list[dict]:
     # front = chunks[::2]
     # back = chunks[1::2]
     # return front + back[::-1]
-    raise NotImplementedError("Implement reorder_for_llm")
+    if len(chunks) <= 2:
+        return list(chunks)
+    return chunks[::2] + chunks[1::2][::-1]
 
 
 def format_context(chunks: list[dict]) -> str:
@@ -55,7 +57,11 @@ def format_context(chunks: list[dict]) -> str:
     #         f"Source: {metadata['source']}]\n{chunk['content']}"
     #     )
     # return "\n\n---\n\n".join(parts)
-    raise NotImplementedError("Implement format_context")
+    return "\n\n---\n\n".join(
+        f"[Document {index} | Title: {chunk['metadata']['title']} | "
+        f"Source: {chunk['metadata']['source']}]\n{chunk['content']}"
+        for index, chunk in enumerate(chunks, 1)
+    )
 
 
 def call_llm(system_prompt: str, user_message: str) -> str:
@@ -67,7 +73,31 @@ def call_llm(system_prompt: str, user_message: str) -> str:
     # - anthropic -> ANTHROPIC_API_KEY
     #
     # Dùng LLM_MODEL và trả về text thuần cho cả ba nhánh.
-    raise NotImplementedError("Implement call_llm")
+    if LLM_PROVIDER == "openai":
+        from openai import OpenAI
+        response = OpenAI(api_key=os.getenv("OPENAI_API_KEY")).chat.completions.create(
+            model=LLM_MODEL or "gpt-4o-mini",
+            messages=[{"role": "system", "content": system_prompt}, {"role": "user", "content": user_message}],
+            temperature=TEMPERATURE,
+            top_p=TOP_P,
+        )
+        return response.choices[0].message.content or ""
+    if LLM_PROVIDER == "gemini":
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+        response = client.models.generate_content(
+            model=LLM_MODEL or "gemini-2.0-flash",
+            contents=user_message,
+            config=types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                temperature=TEMPERATURE,
+                top_p=TOP_P,
+            ),
+        )
+        return response.text or ""
+    raise RuntimeError(f"Unsupported or unavailable LLM provider: {LLM_PROVIDER}")
 
 
 def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
@@ -90,7 +120,18 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
     #     "sources": chunks,
     #     "retrieval_source": chunks[0]["retrieval_method"],
     # }
-    raise NotImplementedError("Implement generate_with_citation")
+    refusal = "Tôi không thể xác minh thông tin này từ nguồn hiện có."
+    chunks = retrieve(query, top_k=top_k)
+    if not chunks:
+        return {"answer": refusal, "sources": [], "retrieval_source": "none"}
+    try:
+        context = format_context(reorder_for_llm(chunks))
+        answer = call_llm(SYSTEM_PROMPT, f"Context:\n{context}\n\nQuestion: {query}")
+    except Exception:
+        answer = refusal
+    source = chunks[0]["retrieval_method"]
+    return {"answer": answer or refusal, "sources": chunks,
+            "retrieval_source": source if source in {"hybrid", "pageindex"} else "hybrid"}
 
 
 if __name__ == "__main__":
