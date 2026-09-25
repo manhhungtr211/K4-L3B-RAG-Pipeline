@@ -2,46 +2,44 @@
 
 ## Thông tin
 
-- Họ và tên: Trần Vũ Gia Huy
-- Mã học viên: 2A202602705
+- Họ và tên: Phạm Anh Minh
+- Mã học viên: 2A202603009
 - Nhóm: Chưa cung cấp
-- Repository/branch: `K4-L3B-RAG-Pipeline` / `main`
+- Repository/branch: `K4-L3B-RAG-Pipeline` / `minh`
 
 ## Phần việc đã thực hiện
 
-| Module/deliverable | Việc tôi trực tiếp làm | File/commit/PR | Trạng thái |
+| Module | Phần việc trực tiếp thực hiện | File | Trạng thái |
 |---|---|---|---|
-| Task 6 - Lexical search | Xây dựng tokenizer Unicode, BM25 index và hàm tìm kiếm theo từ khóa bằng `BM25Okapi` | `src/task6_lexical_search.py` (commit cùng báo cáo) | Done |
-| Tích hợp Task 4 và Task 6 | Nạp trực tiếp 700 chunks đã được Task 4 index trong ChromaDB để BM25 và dense retrieval dùng cùng corpus, ID và metadata | `src/task6_lexical_search.py` | Done |
-| Tuân thủ module contract | Trả `SearchResult` với `retrieval_method="bm25"`, score kiểu `float`, thứ tự giảm dần, không trùng ID và không vượt `top_k` | `src/task6_lexical_search.py`, `tests/test_contracts.py` | Done |
+| Task 7 - RRF reranking | Triển khai Reciprocal Rank Fusion, loại kết quả trùng theo ID, sắp xếp điểm, giới hạn `top_k` và gắn nhãn kết quả `hybrid`. | `src/task7_reranking.py` | Hoàn thành |
+| Task 8 - PageIndex fallback | Bổ sung lớp tích hợp PageIndex an toàn, cơ chế cache tài liệu và xử lý an toàn khi provider hoặc API key không khả dụng. | `src/task8_pageindex_vectorless.py` | Hoàn thành |
+| Task 9 - Retrieval pipeline | Kết nối dense search, lexical search, RRF và PageIndex fallback. Fallback sử dụng điểm dense gốc và lỗi provider không làm pipeline bị crash. | `src/task9_retrieval_pipeline.py` | Hoàn thành |
+| Task 10 - Generation | Triển khai sắp xếp context, định dạng context có citation, gọi Gemini với model `gemini-3.8-flash` và cơ chế từ chối an toàn. | `src/task10_generation.py` | Hoàn thành |
+| Xử lý merge conflict | Xử lý conflict của Task 9 và push kết quả cuối lên `origin/main`. | `src/task9_retrieval_pipeline.py` | Hoàn thành |
 
-## Quyết định kỹ thuật quan trọng
+## Các quyết định kỹ thuật quan trọng
 
-1. **Quyết định:** Nạp corpus BM25 từ collection ChromaDB do Task 4 tạo thay vì duy trì một bản corpus riêng.
-   **Lý do/evidence:** Collection `rag_documents` hiện chứa 700 chunks. Dùng cùng dữ liệu đã index bảo đảm Task 5 và Task 6 tham chiếu cùng ID, nội dung và metadata, đúng yêu cầu trong `MODULE_CONTRACTS.md`.
-   **Trade-off:** Lần tìm kiếm đầu tiên phải đọc toàn bộ chunks từ ChromaDB; corpus sau đó được cache trong biến `CORPUS`, vì vậy nếu index thay đổi trong cùng tiến trình thì cần nạp lại corpus.
+1. **Dùng RRF thay vì cộng trực tiếp điểm dense và lexical.** Mỗi tài liệu nhận điểm `1 / (k + rank)` từ từng bảng xếp hạng. Cách này giữ nguyên sự khác biệt giữa các thang điểm và tạo kết quả duy nhất theo ID ổn định.
 
-2. **Quyết định:** Tokenize bằng `casefold()` và regex Unicode, đồng thời dùng số token trùng làm tiêu chí phá hòa nhưng vẫn giữ nguyên BM25 score.
-   **Lý do/evidence:** Cách này xử lý chữ hoa/thường và văn bản tiếng Việt nhất quán. Với corpus rất nhỏ, `BM25Okapi` có thể cho cùng điểm, kể cả điểm 0, giữa tài liệu khớp và không khớp; tiêu chí phụ giúp thứ tự ổn định.
-   **Trade-off:** Tokenizer đơn giản chưa thực hiện tách từ tiếng Việt chuyên sâu; cụm từ nhiều âm tiết vẫn được xem là các token riêng.
+2. **Dùng điểm dense gốc để quyết định fallback.** Task 9 so sánh điểm dense cao nhất với `SCORE_THRESHOLD`, không so sánh với điểm RRF vì hai loại điểm có ý nghĩa và thang đo khác nhau.
 
 ## Kiểm thử và kết quả
 
-- Test hoặc query đã dùng:
-  - `pytest tests/test_contracts.py::test_lexical_search_returns_bm25_contract -q`
-  - Ba test liên quan đến Task 4, Task 6 và chữ ký public function trong `tests/test_contracts.py`.
-  - Query thực tế: `sản phẩm chính hãng`, `top_k=3` trên collection ChromaDB.
-- Kết quả: 3/3 test được chọn đều pass; query thật trả 3 kết quả và vượt qua `validate_search_results(..., expected_method="bm25")`.
-- Lỗi đã phát hiện và cách xử lý: ChromaDB có thể lược bỏ metadata `url` khi giá trị ban đầu là `None`. Khi nạp corpus, tôi khôi phục trường thành `url: None` để kết quả đáp ứng đầy đủ schema.
+- Đã kiểm tra cú pháp các module đã sửa bằng `python -m py_compile`.
+- Đã đối chiếu interface của Task 7–10 với module contracts của repository.
+- Đã kiểm tra các trường hợp RRF loại trùng, fallback theo điểm dense và xử lý lỗi provider.
+- Đã cấu hình Task 10 sử dụng `GEMINI_API_KEY`, provider `gemini` và model `gemini-3.8-flash`.
+- Không commit API key hoặc response từ provider bên ngoài vào repository.
 
-## Điều còn hạn chế
+## Điều còn hạn chế và hướng phát triển
 
-- Một hạn chế cụ thể: BM25 index đang được dựng lại ở mỗi lần gọi `lexical_search()`, dù corpus đã được cache.
-- Nếu có thêm thời gian, thay đổi đầu tiên tôi sẽ thực hiện: cache cả BM25 index và tokenized corpus, đồng thời bổ sung cơ chế refresh khi collection Task 4 thay đổi.
+- Chức năng upload và query PageIndex cần được kiểm tra thêm với tài khoản provider thật đã cấu hình.
+- Gemini yêu cầu `GEMINI_API_KEY` hợp lệ và dependency `google-genai`.
+- Các chỉ số đánh giá đầy đủ trong `reports/RESULT.md` chưa được điền vì chưa chạy golden-dataset evaluation.
 
 ## Xác nhận đóng góp
 
-Tôi xác nhận nội dung trên phản ánh đúng phần việc của mình và có thể giải thích hoặc chạy lại trong buổi demo.
+Tôi xác nhận báo cáo này phản ánh đúng các phần việc trực tiếp đã thực hiện và có thể giải thích hoặc chạy lại trong buổi demo.
 
 - Ngày: 25/09/2026
-- Tên thành viên: Trần Vũ Gia Huy
+- Tên thành viên: Phạm Anh Minh
