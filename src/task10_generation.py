@@ -25,9 +25,11 @@ TOP_P = 0.9
 TEMPERATURE = 0.3
 
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini").lower()
-LLM_MODEL = os.getenv("LLM_MODEL", "gemini-3.8-flash")
+LLM_MODEL = os.getenv("LLM_MODEL", "gemini-3.5-flash-lite")
 
-SYSTEM_PROMPT = """Trả lời chỉ từ context được cung cấp.
+SYSTEM_PROMPT = """Bạn là trợ lý AI trả lời câu hỏi về dịch vụ Shopee.
+Dựa vào context được cung cấp bên dưới, hãy trả lời câu hỏi của người dùng một cách chi tiết và hữu ích.
+Nếu context có chứa thông tin liên quan, hãy trả lời dựa trên đó và có thể dẫn nguồn.
 Mỗi khẳng định phải có citation. Nếu thiếu evidence, hãy từ chối xác minh."""
 
 
@@ -88,7 +90,7 @@ def call_llm(system_prompt: str, user_message: str) -> str:
 
         client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
         response = client.models.generate_content(
-            model=LLM_MODEL or "gemini-2.0-flash",
+            model=LLM_MODEL or "gemini-3.5-flash-lite",
             contents=user_message,
             config=types.GenerateContentConfig(
                 system_instruction=system_prompt,
@@ -126,12 +128,19 @@ def generate_with_citation(query: str, top_k: int = TOP_K) -> dict:
         return {"answer": refusal, "sources": [], "retrieval_source": "none"}
     try:
         context = format_context(reorder_for_llm(chunks))
-        answer = call_llm(SYSTEM_PROMPT, f"Context:\n{context}\n\nQuestion: {query}")
-    except Exception:
-        answer = refusal
-    source = chunks[0]["retrieval_method"]
-    return {"answer": answer or refusal, "sources": chunks,
-            "retrieval_source": source if source in {"hybrid", "pageindex"} else "hybrid"}
+        user_msg = f"Context:\n{context}\n\nQuestion: {query}"
+        answer = call_llm(SYSTEM_PROMPT, user_msg)
+        if answer and answer.strip():
+            return {"answer": answer, "sources": chunks,
+                    "retrieval_source": chunks[0]["retrieval_method"]}
+        return {"answer": refusal, "sources": chunks,
+                "retrieval_source": chunks[0]["retrieval_method"]}
+    except Exception as e:
+        # Log error for debugging
+        import sys
+        print(f"LLM Error: {e}", file=sys.stderr)
+        return {"answer": f"Lỗi khi gọi LLM: {str(e)}", "sources": chunks,
+                "retrieval_source": chunks[0]["retrieval_method"]}
 
 
 if __name__ == "__main__":
