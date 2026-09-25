@@ -1,0 +1,102 @@
+[
+  {
+    "question": "Vì sao người dùng nên thường xuyên cập nhật ứng dụng Shopee?",
+    "expected_answer": "Người dùng nên cập nhật ứng dụng Shopee để sử dụng các tính năng mới nhất và tăng mức độ an toàn, bảo mật khi sử dụng dịch vụ.",
+    "expected_context": "Shopee khuyến khích người dùng thường xuyên cập nhật Ứng dụng Shopee với phiên bản mới nhất để trải nghiệm các tính năng mới nhất, đồng thời đảm bảo an toàn và bảo mật cho người dùng. Nguồn: article_01.md."
+  },
+  {
+    "question": "Điều gì có thể xảy ra nếu tôi tiếp tục dùng phiên bản Shopee cũ?",
+    "expected_answer": "Phiên bản cũ có thể phát sinh lỗi hoặc sự cố vì không tương thích với các tính năng và thiết lập mới của Shopee.",
+    "expected_context": "Nếu sử dụng phiên bản Ứng dụng Shopee cũ hơn phiên bản cập nhật mới nhất, người dùng có thể gặp lỗi hoặc sự cố không mong muốn do phiên bản cũ không tương thích với các tính năng và thiết lập mới. Nguồn: article_01.md."
+  },
+  {
+    "question": "Thực phẩm chức năng nào được phép mua bán trên Shopee?",
+    "expected_answer": "Các sản phẩm thực phẩm chức năng hoặc thực phẩm bảo vệ sức khỏe không nằm trong danh sách sản phẩm bị cấm hoặc hạn chế mua bán trên Shopee được phép giao dịch.",
+    "expected_context": "Sản phẩm Thực phẩm chức năng/Thực phẩm bảo vệ sức khỏe được phép mua/bán trên Shopee là các sản phẩm không nằm trong Danh sách sản phẩm bị cấm/hạn chế mua bán trên Shopee. Nguồn: article_02.md."
+  },
+  {
+    "question": "Người mua nên kiểm tra những giấy tờ nào khi mua thực phẩm chức năng trên Shopee?",
+    "expected_answer": "Cần kiểm tra Giấy Xác Nhận Công Bố Phù Hợp Quy Định An Toàn Thực Phẩm, giấy chứng nhận đại lý/hợp đồng mua bán/hóa đơn đối với hàng nhập khẩu, và Giấy Xác nhận Quảng cáo của sản phẩm.",
+    "expected_context": "Người bán cần cung cấp: Giấy Xác Nhận Công Bố Phù Hợp Quy Định An Toàn Thực Phẩm; Giấy Chứng nhận đại lý/Hợp đồng mua bán/Hóa đơn mua hàng nếu sản phẩm nhập khẩu; và Giấy Xác nhận Quảng cáo của sản phẩm. Nguồn: article_02.md."
+  },
+  {
+    "question": "Có thể dùng mã vạch hoặc mã QR để xác minh nguồn gốc thực phẩm chức năng như thế nào?",
+    "expected_answer": "Nếu sản phẩm có mã vạch hoặc mã QR, người mua nên quét mã và kiểm tra xem mã có liên kết đúng tới trang web chính hãng của nhà sản xuất hay không.",
+    "expected_context": "Nếu sản phẩm có mã vạch/mã QR tương ứng, hãy quét mã để kiểm tra liệu sản phẩm có được liên kết tương ứng với trang web chính hãng của Nhà sản xuất hay không. Nguồn: article_02.md."
+  },
+  {
+    "question": "Tôi thấy giao dịch lạ từ Shopee và lịch sử mua hàng có đơn tương ứng nhưng tôi không đặt, tôi nên làm gì?",
+    "expected_answer": "Trước tiên hãy kiểm tra xem người thân hoặc bạn bè có được chia sẻ quyền hay thông tin đăng nhập để đặt đơn không. Nếu không, cần đổi ngay mật khẩu Shopee, mật khẩu ví ShopeePay và liên hệ CSKH Shopee.",
+    "expected_context": "Nếu lịch sử mua hàng có đơn tương ứng nhưng chủ tài khoản không đặt, cần kiểm tra việc chia sẻ quyền hoặc thông tin đăng nhập. Nếu không có người quen đặt, hãy lập tức đổi Mật khẩu tài khoản Shopee, Mật khẩu ví ShopeePay và liên hệ Bộ phận CSKH Shopee. Nguồn: article_03.md."
+  },
+  {
+    "question": "Nếu giao dịch lạ từ Shopee không có đơn hàng tương ứng trong lịch sử mua hàng thì xử lý ra sao?",
+    "expected_answer": "Hãy kiểm tra xem người thân hoặc bạn bè có dùng thông tin thẻ/tài khoản ngân hàng không. Nếu không, phải báo ngay cho ngân hàng hoặc đơn vị phát hành thẻ và đồng thời liên hệ CSKH Shopee.",
+    "expected_context": "Nếu lịch sử mua hàng không có đơn hàng tương ứng, hãy kiểm tra người thân hoặc bạn bè có sử dụng thông tin thanh toán hay không. Nếu không, báo ngay với Ngân hàng/Đơn vị phát hành thẻ và liên hệ Bộ phận CSKH Shopee. Nguồn: article_03.md."
+  },
+  {
+    "question": "Shopee khuyến nghị những biện pháp nào để bảo vệ tài khoản trước hành vi lừa đảo?",
+    "expected_answer": "Người dùng nên đăng xuất khi dùng máy tính công cộng, không mở liên kết hoặc tệp đáng ngờ, không chia sẻ mật khẩu, OTP, PIN hay thông tin tài chính, bật xác thực hai yếu tố và theo dõi các cảnh báo lừa đảo.",
+    "expected_context": "Các biện pháp gồm đăng xuất trên máy tính công cộng; không nhấn đường dẫn lạ hoặc tệp chứa mã độc; không chia sẻ Mật khẩu, OTP, PIN ShopeePay hay thông tin tài chính; thiết lập xác thực 2 yếu tố; và theo dõi bài viết Cảnh báo lừa đảo. Nguồn: article_03.md."
+  },
+  {
+    "question": "Dấu hiệu nào giúp nhận biết nhanh sản phẩm chính hãng trên Shopee?",
+    "expected_answer": "Có thể kiểm tra nhãn Shopee Mall; người bán thuộc Shopee Mall được chứng nhận cung cấp hàng chính hãng.",
+    "expected_context": "Để tìm mua sản phẩm chính hãng, hãy kiểm tra Người bán có được gắn nhãn Shopee Mall hay không. Người bán thuộc Shopee Mall được chứng nhận cung cấp 100% hàng chính hãng. Nguồn: article_04.md."
+  },
+  {
+    "question": "Làm sao kiểm tra tính chính hãng nếu người bán không có nhãn Shopee Mall?",
+    "expected_answer": "Người mua nên xem đánh giá từ những người mua trước, kiểm tra hình ảnh và mô tả sản phẩm, đồng thời xem hóa đơn mua hàng hoặc giấy ủy quyền đại lý phân phối chính hãng nếu có.",
+    "expected_context": "Với Người bán không có nhãn Shopee Mall, có thể tham khảo đánh giá của Người mua trước và kiểm tra hình ảnh, Mô tả sản phẩm, hóa đơn mua hàng hoặc giấy ủy quyền Đại lý phân phối sản phẩm chính hãng. Nguồn: article_04.md."
+  },
+  {
+    "question": "Hành vi mua và bán lại trên Shopee được hiểu là gì?",
+    "expected_answer": "Đó là hành vi cá nhân hoặc tổ chức lạm dụng mã giảm giá, chương trình trợ giá hoặc khuyến mãi trên Shopee để mua sản phẩm rồi bán lại.",
+    "expected_context": "Mua & bán lại là hành vi Người dùng, cá nhân hoặc tổ chức, lạm dụng mã giảm giá, chương trình trợ giá hoặc khuyến mãi tại Shopee để mua và bán lại sản phẩm. Nguồn: article_05.md."
+  },
+  {
+    "question": "Tài khoản thực hiện hành vi mua và bán lại có thể bị Shopee xử lý thế nào?",
+    "expected_answer": "Shopee có thể hủy đơn hàng vi phạm, gửi cảnh báo, giới hạn tài khoản hoặc khóa vĩnh viễn tài khoản.",
+    "expected_context": "Các biện pháp đối với hành vi Mua & bán lại gồm hủy đơn hàng vi phạm, gửi thông tin cảnh báo, giới hạn tài khoản hoặc khóa vĩnh viễn tài khoản vi phạm. Nguồn: article_05.md."
+  },
+  {
+    "question": "Mua và bán lại gây những tác hại gì theo Shopee?",
+    "expected_answer": "Hành vi này gây cạnh tranh không công bằng, có thể làm giá sản phẩm tăng và làm giảm niềm tin của người dùng, ảnh hưởng đến uy tín của Shopee.",
+    "expected_context": "Mua & bán lại có thể gây cạnh tranh không công bằng, làm gia tăng giá sản phẩm và làm giảm sự tin tưởng của Người dùng đối với Shopee, ảnh hưởng đến uy tín và danh tiếng của Shopee. Nguồn: article_05.md."
+  },
+  {
+    "question": "Lạm dụng ưu đãi của Shopee là hành vi gì?",
+    "expected_answer": "Đó là việc cá nhân hoặc tổ chức lạm dụng mã giảm giá, chương trình trợ giá hoặc các chương trình khuyến mãi tại Shopee.",
+    "expected_context": "Lạm dụng ưu đãi của Shopee là hành vi Người dùng, cá nhân hoặc tổ chức, lạm dụng các mã giảm giá, chương trình trợ giá hoặc khuyến mãi tại Shopee. Nguồn: article_06.md."
+  },
+  {
+    "question": "Shopee có thể áp dụng biện pháp gì với tài khoản lạm dụng ưu đãi?",
+    "expected_answer": "Shopee có thể hủy đơn hàng vi phạm, gửi thông tin cảnh báo hoặc khóa vĩnh viễn tài khoản vi phạm.",
+    "expected_context": "Các biện pháp đối với tài khoản Lạm dụng ưu đãi gồm hủy đơn hàng vi phạm, gửi thông tin cảnh báo và khóa vĩnh viễn tài khoản vi phạm. Nguồn: article_06.md."
+  },
+  {
+    "question": "Chính sách bảo mật của Shopee áp dụng cho người mua hay người bán?",
+    "expected_answer": "Chính sách bảo mật áp dụng cho cả người bán và người mua sử dụng dịch vụ, trừ khi có tuyên bố rõ ràng khác.",
+    "expected_context": "Chính sách bảo mật được áp dụng cho cả Người bán và Người mua đang sử dụng Dịch vụ trừ khi có tuyên bố rõ ràng ngược lại. Nguồn: shopee_quy_trinh_tra_hang_hoan_tien_77244.md."
+  },
+  {
+    "question": "Shopee có thể thu thập những loại dữ liệu cá nhân nào?",
+    "expected_answer": "Shopee có thể thu thập các dữ liệu như họ tên, email, ngày sinh, địa chỉ thanh toán hoặc giao hàng, tài khoản ngân hàng và thông tin thanh toán, số điện thoại, giới tính, dữ liệu thiết bị, hình ảnh, âm thanh, video và dữ liệu giao dịch.",
+    "expected_context": "Dữ liệu Shopee có thể thu thập gồm họ tên, email, ngày sinh, địa chỉ thanh toán/giao nhận, tài khoản ngân hàng và thông tin thanh toán, số điện thoại, giới tính, dữ liệu thiết bị, hình ảnh hoặc âm thanh hoặc video, cùng thông tin sử dụng và giao dịch. Nguồn: shopee_quy_trinh_tra_hang_hoan_tien_77244.md."
+  },
+  {
+    "question": "Nếu từ chối cho Shopee thu thập dữ liệu vị trí thì có ảnh hưởng gì?",
+    "expected_answer": "Người dùng có thể từ chối hoặc rút lại sự cho phép, nhưng các dịch vụ phụ thuộc vào vị trí sẽ không hoạt động nếu ứng dụng không được phép truy cập vị trí.",
+    "expected_context": "Việc từ chối hoặc hủy bỏ cho phép thu thập dữ liệu có thể ảnh hưởng đến việc sử dụng Dịch vụ; ví dụ dịch vụ xác định vị trí sẽ không hoạt động nếu người dùng không cho phép ứng dụng truy cập vị trí. Nguồn: shopee_quy_trinh_tra_hang_hoan_tien_77244.md."
+  },
+  {
+    "question": "Shopee lưu dữ liệu cá nhân của người dùng đến khi nào?",
+    "expected_answer": "Shopee duy trì dữ liệu theo pháp luật và có thể hủy hoặc xóa thông tin nhận dạng khi dữ liệu không còn phục vụ mục đích thu thập, không còn cần cho mục đích hợp pháp hoặc kinh doanh và không còn lợi ích hợp pháp khác để tiếp tục lưu giữ.",
+    "expected_context": "Shopee sẽ hủy hoặc xóa thông tin nhận dạng khi việc lưu giữ không còn phục vụ mục đích thu thập, không còn cần thiết cho mục đích hợp pháp hay kinh doanh và không còn lợi ích hợp pháp khác để tiếp tục lưu giữ dữ liệu. Nguồn: shopee_quy_trinh_tra_hang_hoan_tien_77244.md."
+  },
+  {
+    "question": "Người dùng phải làm gì khi phát hiện thông tin cá nhân bị Shopee sử dụng sai mục đích hoặc phạm vi?",
+    "expected_answer": "Người dùng có quyền gửi khiếu nại qua biểu mẫu liên hệ của Shopee, kèm thông tin và chứng cứ liên quan; Shopee cam kết phản hồi trong vòng 24 giờ để thống nhất phương án giải quyết.",
+    "expected_context": "Khi phát hiện thông tin cá nhân bị sử dụng sai mục đích hoặc phạm vi, người dùng có quyền gửi khiếu nại đến https://help.shopee.vn/vn/s/contactusform với thông tin, chứng cứ liên quan. Công ty cam kết phản hồi trong vòng 24 tiếng. Nguồn: shopee_quy_trinh_tra_hang_hoan_tien_77244.md."
+  }
+]
