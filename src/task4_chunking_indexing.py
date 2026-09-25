@@ -50,8 +50,8 @@ COLLECTION_NAME = "rag_documents"
 
 # === Document Loading ===
 def _extract_url_from_markdown(content: str) -> str | None:
-    """Trích xuất URL từ header metadata nếu có dạng **Source:** <url>."""
-    match = re.search(r"\*\*Source:\*\*\s*(https?://[^\s\n]+)", content)
+    """Trích xuất URL từ header metadata nếu có dạng **URL:** hoặc **Source:** <url>."""
+    match = re.search(r"\*\*(?:URL|Source):\*\*\s*(https?://[^\s\n\)]+)", content)
     if match:
         return match.group(1).strip()
     return None
