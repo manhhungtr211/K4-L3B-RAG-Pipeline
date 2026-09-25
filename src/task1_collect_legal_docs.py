@@ -1,10 +1,6 @@
 """
 Task 1 — Thu thập tài liệu chính sách/quy định Shopee dạng JSON và PDF.
 
-Hướng dẫn:
-    1. Crawl 3 bài viết chính sách Shopee theo URL.
-    2. Lưu dữ liệu dạng JSON (kèm file PDF tương ứng) vào data/landing/legal/.
-    3. Đảm bảo có đủ metadata: url, title, date_crawled, content_markdown.
 """
 
 import asyncio
